@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'notifications/notification_screen.dart';
+import 'package:provider/provider.dart'; // Import provider
+import 'notifications/notification_model.dart'; // Import model notifikasi
+import 'notifications/notification_screen.dart'; // Import layar notifikasi
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NotificationModel(), // Menyediakan model notifikasi
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Notification App',
+      title: 'Flutter Notification App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        textTheme: GoogleFonts.poppinsTextTheme(), // Gunakan Poppins sebagai font utama
       ),
       home: const NotificationScreen(),
     );

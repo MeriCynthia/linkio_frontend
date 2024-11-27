@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart'; 
+import 'notification_model.dart'; 
 import 'widgets/notification_item.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -17,26 +19,27 @@ class NotificationScreen extends StatelessWidget {
               children: [
                 const NotificationHeader(),
                 const SizedBox(height: 24),
-                // Bagian 'Notifications' dihapus dari sini
                 const SizedBox(height: 25),
-                NotificationItem(
-                  title: 'New Lynk.id Feature Update!',
-                  date: '18 Jan 2023 - 11:18',
-                ),
-                const SizedBox(height: 25),
-                NotificationItem(
-                  title: '[IMPORTANT] Balance Settlement policy update',
-                  date: '28 Feb 2024 - 15:20',
-                ),
-                const SizedBox(height: 25),
-                NotificationItem(
-                  title: 'New notification feature!',
-                  date: '11 Oct 2022 - 10:45',
-                ),
-                const SizedBox(height: 25),
-                NotificationItem(
-                  title: 'New feature - custom favicon',
-                  date: '08 Nov 2021 - 19:14',
+                // Menggunakan Consumer untuk mendengarkan perubahan pada state
+                Consumer<NotificationModel>(
+                  builder: (context, notificationModel, child) {
+                    return Column(
+                      children: notificationModel.notifications
+                          .map((notification) {
+                            // Untuk setiap item, tambahkan SizedBox sebagai jarak
+                            return Column(
+                              children: [
+                                NotificationItem(
+                                  title: notification['title']!,
+                                  date: notification['date']!,
+                                ),
+                                const SizedBox(height: 25), // Jarak antar notifikasi
+                              ],
+                            );
+                          })
+                          .toList(),
+                    );
+                  },
                 ),
               ],
             ),
