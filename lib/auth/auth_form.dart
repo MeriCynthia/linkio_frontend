@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../screens/login_screen.dart';
 
 class AuthForm extends StatefulWidget {
@@ -54,7 +55,7 @@ class _AuthFormState extends State<AuthForm> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigasi ke HomeScreen
+                  // Navigasi ke LoginScreen
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
