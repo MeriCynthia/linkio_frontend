@@ -3,12 +3,22 @@ import 'package:flutter_material_color_picker/flutter_material_color_picker.dart
 
 class ChangeTitleDialog extends StatefulWidget {
   final String? initialTitle;
+  final bool initialBold;
+  final bool initialItalic;
+  final TextAlign initialTextAlign;
+  final Color initialTextColor;
+  final String? initialFontFamily;
   final Function(String) onTitleChanged;
   final Function(bool, bool, TextAlign, Color, String?) onStyleChanged;
 
   const ChangeTitleDialog({
     Key? key,
     required this.initialTitle,
+    required this.initialBold,
+    required this.initialItalic,
+    required this.initialTextAlign,
+    required this.initialTextColor,
+    required this.initialFontFamily,
     required this.onTitleChanged,
     required this.onStyleChanged,
   }) : super(key: key);
@@ -19,16 +29,84 @@ class ChangeTitleDialog extends StatefulWidget {
 
 class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
   late TextEditingController _controller;
-  bool _isBold = false;
-  bool _isItalic = false;
-  TextAlign _textAlign = TextAlign.left;
-  Color _textColor = Colors.black;
-  String? _fontFamily;
+  late bool _isBold;
+  late bool _isItalic;
+  late TextAlign _textAlign;
+  late Color _textColor;
+  late String? _fontFamily;
 
   @override
   void initState() {
     super.initState();
+    // Initialize with values from widget
     _controller = TextEditingController(text: widget.initialTitle);
+    _isBold = widget.initialBold;
+    _isItalic = widget.initialItalic;
+    _textAlign = widget.initialTextAlign;
+    _textColor = widget.initialTextColor;
+    _fontFamily = widget.initialFontFamily;
+  }
+
+  void _updateStyle() {
+    widget.onStyleChanged(_isBold, _isItalic, _textAlign, _textColor, _fontFamily);
+  }
+
+  Widget _buildOptionButton({
+    required IconData icon,
+    required bool isActive,
+    required VoidCallback onTap,
+  }) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          onTap();
+          _updateStyle();
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: isActive ? const Color(0xFF023574) : Colors.grey.shade200,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: isActive ? const Color(0xFF023574) : Colors.grey,
+            width: 2,
+          ),
+        ),
+        child: Icon(
+          icon,
+          color: isActive ? Colors.white : Colors.black,
+          size: 16,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildAlignButton(IconData icon, TextAlign align) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _textAlign = align;
+          _updateStyle();
+        });
+      },
+      child: Container(
+        padding: const EdgeInsets.all(6),
+        decoration: BoxDecoration(
+          color: _textAlign == align ? const Color(0xFF023574) : Colors.grey.shade200,
+          shape: BoxShape.circle,
+          border: Border.all(
+            color: _textAlign == align ? const Color(0xFF023574) : Colors.grey,
+            width: 2,
+          ),
+        ),
+        child: Icon(
+          icon,
+          color: _textAlign == align ? Colors.white : Colors.black,
+          size: 16,
+        ),
+      ),
+    );
   }
 
   @override
@@ -38,10 +116,9 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
       backgroundColor: Colors.transparent,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          // Calculate available height considering keyboard
           final availableHeight = MediaQuery.of(context).size.height -
               MediaQuery.of(context).viewInsets.bottom -
-              10; // 40 for padding
+              10;
 
           return Container(
             constraints: BoxConstraints(
@@ -54,7 +131,6 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                 body: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    // Header
                     Padding(
                       padding: const EdgeInsets.all(16),
                       child: Row(
@@ -74,7 +150,6 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                         ],
                       ),
                     ),
-                    // Scrollable content
                     Expanded(
                       child: SingleChildScrollView(
                         physics: const AlwaysScrollableScrollPhysics(),
@@ -95,6 +170,9 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                               ),
+                              onChanged: (value) {
+                                widget.onTitleChanged(value);
+                              },
                             ),
                             const SizedBox(height: 16),
                             Container(
@@ -123,24 +201,19 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                                   icon: Icons.format_bold,
                                   isActive: _isBold,
                                   onTap: () {
-                                    setState(() {
-                                      _isBold = !_isBold;
-                                    });
+                                    _isBold = !_isBold;
                                   },
                                 ),
                                 _buildOptionButton(
                                   icon: Icons.format_italic,
                                   isActive: _isItalic,
                                   onTap: () {
-                                    setState(() {
-                                      _isItalic = !_isItalic;
-                                    });
+                                    _isItalic = !_isItalic;
                                   },
                                 ),
                                 _buildAlignButton(Icons.format_align_left, TextAlign.left),
                                 _buildAlignButton(Icons.format_align_center, TextAlign.center),
                                 _buildAlignButton(Icons.format_align_right, TextAlign.right),
-                                // Color picker button
                                 GestureDetector(
                                   onTap: () async {
                                     Color? newColor = await showDialog(
@@ -169,6 +242,7 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                                     if (newColor != null) {
                                       setState(() {
                                         _textColor = newColor;
+                                        _updateStyle();
                                       });
                                     }
                                   },
@@ -216,6 +290,7 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                                   onChanged: (String? newValue) {
                                     setState(() {
                                       _fontFamily = newValue;
+                                      _updateStyle();
                                     });
                                   },
                                   items: [
@@ -242,7 +317,7 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
                               child: GestureDetector(
                                 onTap: () {
                                   widget.onTitleChanged(_controller.text);
-                                  widget.onStyleChanged(_isBold, _isItalic, _textAlign, _textColor, _fontFamily);
+                                  _updateStyle();
                                   Navigator.of(context).pop();
                                 },
                                 child: Container(
@@ -283,56 +358,9 @@ class _ChangeTitleDialogState extends State<ChangeTitleDialog> {
     );
   }
 
-  // Helper methods remain the same
-  Widget _buildOptionButton({
-    required IconData icon,
-    required bool isActive,
-    required VoidCallback onTap,
-  }) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: isActive ? const Color(0xFF023574) : Colors.grey.shade200,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: isActive ? const Color(0xFF023574) : Colors.grey,
-            width: 2,
-          ),
-        ),
-        child: Icon(
-          icon,
-          color: isActive ? Colors.white : Colors.black,
-          size: 16,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildAlignButton(IconData icon, TextAlign align) {
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _textAlign = align;
-        });
-      },
-      child: Container(
-        padding: const EdgeInsets.all(6),
-        decoration: BoxDecoration(
-          color: _textAlign == align ? const Color(0xFF023574) : Colors.grey.shade200,
-          shape: BoxShape.circle,
-          border: Border.all(
-            color: _textAlign == align ? const Color(0xFF023574) : Colors.grey,
-            width: 2,
-          ),
-        ),
-        child: Icon(
-          icon,
-          color: _textAlign == align ? Colors.white : Colors.black,
-          size: 16,
-        ),
-      ),
-    );
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 }

@@ -73,19 +73,23 @@ class CustomScreen extends StatelessWidget {
       context: context,
       builder: (context) {
         return ChangeTitleDialog(
-          initialTitle: controller.title.value,
-          onTitleChanged: controller.updateTitle,
-          onStyleChanged: (bold, italic, align, color, fontFamily) {
-            // Menggunakan null check pada fontFamily
-            controller.updateStyle(
-              bold: bold,
-              italic: italic,
-              align: align,
-              color: color,
-              fontFamily: fontFamily ?? 'Poppins', // Menggunakan nilai default jika null
-            );
-          },
-        );
+        initialTitle: controller.title.value,
+        initialBold: controller.isBold.value, // Tambahkan ini
+        initialItalic: controller.isItalic.value, // Tambahkan ini
+        initialTextAlign: controller.textAlign.value, // Tambahkan ini
+        initialTextColor: controller.textColor.value, // Tambahkan ini
+        initialFontFamily: controller.selectedFontFamily.value, // Tambahkan ini
+        onTitleChanged: controller.updateTitle,
+        onStyleChanged: (bold, italic, align, color, fontFamily) {
+          controller.updateStyle(
+            bold: bold,
+            italic: italic,
+            align: align,
+            color: color,
+            fontFamily: fontFamily ?? 'Poppins',
+          );
+        },
+      );
       },
     );
   }
@@ -234,7 +238,7 @@ class CustomScreen extends StatelessWidget {
                 width: double.infinity,
                 child: controller.title.value != null
                     ? Text(
-                        "Current Title: ${controller.title.value}",
+                        "${controller.title.value}",
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: controller.isBold.value
