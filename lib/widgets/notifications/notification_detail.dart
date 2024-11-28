@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart'; // Tambahkan import ini
 
 class NotificationDetail extends StatelessWidget {
   final String title;
@@ -41,7 +42,7 @@ class NotificationDetail extends StatelessWidget {
 
     return NotificationDetail(
       title: title,
-      date: date ?? 'Unknown Date',
+      date: date ?? 'Unknown date',
       description: description,
     );
   }
@@ -73,7 +74,7 @@ class NotificationDetail extends StatelessWidget {
                       horizontal: 16,
                     ),
                     decoration: const BoxDecoration(
-                      color: Color(0xFF009688), // Warna header
+                      color: Color.fromARGB(255, 4, 139, 125), // Warna header
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(10),
                         topRight: Radius.circular(10),
@@ -84,8 +85,7 @@ class NotificationDetail extends StatelessWidget {
                       children: [
                         Text(
                           title,
-                          style: const TextStyle(
-                            fontFamily: 'Poppins', // Apply Poppins font
+                          style: GoogleFonts.poppins( // Gunakan font Poppins
                             color: Colors.white,
                             fontSize: 15,
                             fontWeight: FontWeight.bold,
@@ -96,8 +96,7 @@ class NotificationDetail extends StatelessWidget {
                         const SizedBox(height: 8),
                         Text(
                           date,
-                          style: const TextStyle(
-                            fontFamily: 'Poppins', // Apply Poppins font
+                          style: GoogleFonts.poppins( // Gunakan font Poppins
                             color: Colors.white70,
                             fontSize: 14,
                           ),
@@ -111,8 +110,7 @@ class NotificationDetail extends StatelessWidget {
                     padding: const EdgeInsets.all(24),
                     child: Text(
                       description,
-                      style: const TextStyle(
-                        fontFamily: 'Poppins', // Apply Poppins font
+                      style: GoogleFonts.poppins( // Gunakan font Poppins
                         color: Colors.black87,
                         fontSize: 14,
                       ),

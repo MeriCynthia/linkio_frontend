@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/widgets/home/profile_section2.dart';
+import '../widgets/home/profile_section2.dart';
 import '../widgets/bottom_nav.dart';
 import '../widgets/home/stats_section.dart';
 import 'notification_screen.dart';

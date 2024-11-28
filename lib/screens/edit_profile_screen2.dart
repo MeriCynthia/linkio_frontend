@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/widgets/edit_profile/profile_image2.dart';
+import '../widgets/edit_profile/profile_image2.dart';
 import '../widgets/edit_profile/profile_form.dart';
 
 class EditProfileScreen2 extends StatelessWidget {

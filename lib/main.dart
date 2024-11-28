@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/screens/edit_profile_screen.dart';
-import 'package:linkio_frontend/screens/home_screen.dart';
-import 'package:linkio_frontend/screens/notification_screen.dart';
+import '../screens/edit_profile_screen.dart';
+import '../screens/home_screen.dart';
+import '../screens/notification_screen.dart';
+import 'package:provider/provider.dart';
+import 'notification_model.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => NotificationModel(), // Menyediakan model notifikasi
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -14,8 +21,8 @@ class MyApp extends StatelessWidget {
       title: 'Navigation Example',
       initialRoute: '/home', // Rute awal saat aplikasi dibuka
       routes: {
-        '/home': (context) => HomeScreen(), // Rute untuk halaman Home
-        '/notification': (context) => NotificationScreen(), // Rute untuk halaman Search
+        '/home': (context) => const HomeScreen(), // Rute untuk halaman Home
+        '/notification': (context) => const NotificationScreen(), // Rute untuk halaman Search
         '/editprofile': (context) => const EditProfileScreen(), // Rute untuk halaman Search        
       },
       debugShowCheckedModeBanner: false, // Menyembunyikan banner debug

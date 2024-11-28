@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/widgets/bottom_nav.dart';
-import 'package:linkio_frontend/widgets/home/log_out_dialogue.dart';
-import 'package:linkio_frontend/widgets/home/profile_section.dart';
-import 'package:linkio_frontend/widgets/home/stats_section.dart';
+import '../widgets/bottom_nav.dart';
+import '../widgets/home/log_out_dialogue.dart';
+import '../widgets/home/profile_section.dart';
+import '../widgets/home/stats_section.dart';
 import 'notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {

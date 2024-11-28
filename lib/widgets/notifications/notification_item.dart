@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/widgets/notification/notification_detail.dart';
+import 'package:google_fonts/google_fonts.dart'; // Tambahkan import ini
+import 'notification_detail.dart';
 
 class NotificationHeader extends StatelessWidget {
   const NotificationHeader({Key? key}) : super(key: key);
@@ -8,29 +9,19 @@ class NotificationHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IconButton(
-          icon: const Icon(
-            Icons.chevron_left,
-            color: Color(0xFF023574),
-            size: 28,
-          ),
-          onPressed: () {
-            // Navigate back to the homepage when back button is pressed
-            Navigator.popUntil(context, ModalRoute.withName('/home'));
-          },
+        Icon(
+          Icons.chevron_left,
+          color: const Color(0xFF023574),
+          size: 28,
         ),
-        // Centering the "Notifications" text
-        Expanded(
-          child: Text(
-            'Notifications',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'Poppins', // Apply Poppins font
-              color: const Color(0xFF023574),
-              fontSize: 32,
-              fontWeight: FontWeight.bold, // Make the text bold
-              decoration: TextDecoration.none, // Remove underline
-            ),
+        const SizedBox(width: 50),
+        Text(
+          'Notifications',
+          style: GoogleFonts.poppins( // Gunakan font Poppins
+            color: const Color(0xFF023574),
+            fontSize: 32,
+            fontWeight: FontWeight.w600,
+            decoration: TextDecoration.none,
           ),
         ),
       ],
@@ -54,11 +45,10 @@ class NotificationItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Show pop-up dialog with dark background
         showDialog(
           context: context,
-          barrierDismissible: true, // Dialog can be dismissed by tapping outside
-          barrierColor: Colors.black.withOpacity(0.5), // Semi-transparent dark background
+          barrierDismissible: true,
+          barrierColor: Colors.black.withOpacity(0.5),
           builder: (BuildContext context) {
             return NotificationDetail.buildFromTitle(title, date);
           },
@@ -87,12 +77,11 @@ class NotificationItem extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 10),
                 child: Text(
                   title,
-                  style: const TextStyle(
-                    fontFamily: 'Poppins', // Apply Poppins font
+                  style: GoogleFonts.poppins( // Gunakan font Poppins
                     fontSize: 13,
                     fontWeight: FontWeight.w600,
-                    color: Color(0xFF323334),
-                    decoration: TextDecoration.none, // Remove underline if any
+                    color: const Color(0xFF323334),
+                    decoration: TextDecoration.none,
                   ),
                 ),
               ),
@@ -100,12 +89,11 @@ class NotificationItem extends StatelessWidget {
             if (showDate && date != null)
               Text(
                 date!,
-                style: const TextStyle(
-                  fontFamily: 'Poppins', // Apply Poppins font
+                style: GoogleFonts.poppins( // Gunakan font Poppins
                   fontSize: 8,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFFA2A2A2),
-                  decoration: TextDecoration.none, // Remove underline if any
+                  color: const Color(0xFFA2A2A2),
+                  decoration: TextDecoration.none,
                 ),
               ),
           ],

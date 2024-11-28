@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/screens/home_screen2.dart';
+import '../../screens/home_screen2.dart';
 
 class ProfileForm extends StatefulWidget {
   const ProfileForm({super.key});
