@@ -1,38 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:linkio_frontend/screens/home_screen.dart';
+import 'screens/search_screen.dart';
+import 'screens/home_screen.dart'; // Import HomeScreen
+import 'screens/custom_screen.dart'; // Import CustomScreen
+import 'screens/mylink_screen.dart'; // Import MyLinkScreen
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'LinkIo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const HomeScreen(),
+      initialRoute: '/search',
+      routes: {
+        '/search': (context) => SearchScreen(),
+        '/home': (context) => const HomeScreen(), // Route for Home
+        '/custom': (context) => const CustomScreen(), // Route for Custom
+        // '/my-link': (context) => const MylinkScreen(), // Route for My Link
+      },
     );
   }
 }
