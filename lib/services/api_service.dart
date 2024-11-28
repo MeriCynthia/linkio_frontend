@@ -6,6 +6,17 @@ import '../models/MyLink.dart';
 import '../models/LinkBlock.dart';
 import '../constant.dart';
 
+  Future<User> fetchUser() async {
+    final response = await http.get(Uri.parse('https://8aa8-180-242-214-35.ngrok-free.app/api/user/search?username=janesmith'));
+
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      return User.fromJson(jsonData);
+    } else {
+      throw Exception('Failed to fetch user data');
+    }
+  }
+
 Future<ApiResponse> searchUserByUsername(String username) async {
   ApiResponse apiResponse = ApiResponse();
   try {
@@ -30,8 +41,6 @@ Future<ApiResponse> searchUserByUsername(String username) async {
       } else {
         apiResponse.error = "User not found.";
       }
-    } else {
-      apiResponse.error = 'Error: ${response.statusCode}, ${response.body}';
     }
   } catch (e) {
     apiResponse.error = 'Server error: $e';

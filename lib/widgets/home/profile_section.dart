@@ -35,7 +35,7 @@ Widget profileSection(BuildContext context, VoidCallback onLogout, String s) {
             // Profile Picture - Always use the asset 'profil.png'
             CircleAvatar(
               radius: 25,
-              backgroundImage: const AssetImage('assets/images/profil.png'),  // Use asset profile picture
+              backgroundImage: const AssetImage('assets/images/default_profile.png'),  // Use asset profile picture
             ),
             const SizedBox(width: 10),
             Expanded(

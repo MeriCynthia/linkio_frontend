@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/profile_header.dart';
-import '../widgets/link_blocks.dart';
+import '../widgets/profile_links.dart';
 import '../widgets/bottom_nav.dart';
 
 class MylinkScreen extends StatefulWidget {

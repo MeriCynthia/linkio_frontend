@@ -11,7 +11,7 @@
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
   FileSelectorWindowsRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("FileSelectorWindows")),
+      registry->GetRegistrarForPlugin("FileSelectorWindows"));
   UrlLauncherWindowsRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("UrlLauncherWindows"));
 }
