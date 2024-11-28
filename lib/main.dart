@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'notification_model.dart';
 import 'screens/search_screen.dart';
 import 'screens/mylink_screen.dart';
+import '../screens/custom_screen.dart';
 
 void main() {
   runApp(
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         '/notification': (context) => const NotificationScreen(), // Rute untuk halaman Search
         '/editprofile': (context) => const EditProfileScreen(),
         '/search': (context) => SearchScreen(), 
-        '/my-link': (context) => const MylinkScreen(),       
+        '/my-link': (context) => const MylinkScreen(),
+        '/custom': (context) => CustomScreen()    
       },
       debugShowCheckedModeBanner: false, // Menyembunyikan banner debug
     );
