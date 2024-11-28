@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../screens/edit_profile_screen.dart';
 
 class ProfileSection2 extends StatelessWidget {
   const ProfileSection2({super.key});

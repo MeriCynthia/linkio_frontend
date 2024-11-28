@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:linkio_frontend/screens/edit_profile_screen.dart';
 
 // Function to simulate user logout
 void logout(BuildContext context) {

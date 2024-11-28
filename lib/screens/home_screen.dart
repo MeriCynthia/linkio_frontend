@@ -3,6 +3,7 @@ import 'package:linkio_frontend/widgets/bottom_nav.dart';
 import 'package:linkio_frontend/widgets/home/log_out_dialogue.dart';
 import 'package:linkio_frontend/widgets/home/profile_section.dart';
 import 'package:linkio_frontend/widgets/home/stats_section.dart';
+import 'notification_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
